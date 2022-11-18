@@ -6,7 +6,7 @@
 /*   By: ladloff <ladloff@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:50:16 by ladloff           #+#    #+#             */
-/*   Updated: 2022/11/13 16:41:45 by ladloff          ###   ########.fr       */
+/*   Updated: 2022/11/18 11:12:11 by ladloff          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 # ifdef __APPLE__
 #  define NULL_OS "0x0"
-# endif
-
-# ifdef __LINUX__
+# else
 #  define NULL_OS "(nil)"
 # endif
 
