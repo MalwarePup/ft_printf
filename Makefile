@@ -6,80 +6,53 @@
 #    By: ladloff <ladloff@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 13:16:40 by ladloff           #+#    #+#              #
-#    Updated: 2022/11/04 20:43:18 by ladloff          ###   ########.fr        #
+#    Updated: 2023/04/07 20:33:34 by ladloff          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#==============================================================================#
-# Macros                                                                       #
-#==============================================================================#
+NAME		?=	libftprintf.a
 
-# Main
+SRC_DIR		?=	./src
+OBJ_DIR		?=	./obj
+INC_DIR		?=	./include
+LIB_DIR		?=	./libft
 
-NAME = libftprintf.a
+SRCS 		:=	ft_printf.c			\
+				ft_printchar.c		\
+				ft_printstr.c		\
+				ft_format.c			\
+				ft_printptr.c		\
+				ft_printdec.c		\
+				ft_printudec.c		\
+				ft_printhex_lower.c	\
+				ft_printhex_upper.c
 
-CC = cc
+OBJS		:=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+LIB_INC		:=	$(addprefix -I, $(LIB_DIR)/include)
+INC			:=	$(addprefix -I, $(INC_DIR))
 
-CFLAGS = -Wall -Wextra -Werror -I ${INCL} -I ${LIB_DIR}
+CFLAGS		:= -Wall -Wextra -Werror $(INC) $(LIB_INC)
 
-# Sources
-
-SRCS_DIR = srcs/
-
-SRCS =	ft_printf.c			\
-		ft_printchar.c		\
-		ft_printstr.c		\
-		ft_format.c			\
-		ft_printptr.c		\
-		ft_printdec.c		\
-		ft_printudec.c		\
-		ft_printhex_lower.c	\
-		ft_printhex_upper.c
-
-# Includes
-
-INCL = includes/
-
-# Objects
-
-OBJS_DIR = objs/
-
-OBJS = ${addprefix ${OBJS_DIR}, ${SRCS:.c=.o}}
-
-# Libft
-
-LIB_DIR = libft
-
-# Others
-
-RM = rm -rf
-
-AR = ar -rc
-
-#==============================================================================#
-# Rules                                                                        #
-#==============================================================================#
-
-${OBJS_DIR}%.o: ${SRCS_DIR}%.c
-	@mkdir -p ${OBJS_DIR}
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): ${OBJS}
-	@make -C libft
-	@cp libft/libft.a ${NAME}
-	@${AR} ${NAME} ${OBJS}
+$(NAME): $(OBJS)
+	$(MAKE) -C libft
+	cp $(LIB_DIR)/libft.a $(NAME)
+	ar -rcs $(NAME) $(OBJS)
 
-all: ${NAME}
+all: $(NAME)
 
 clean:
-	@make clean -C libft
-	@${RM} ${OBJS}
+	$(MAKE) clean -C libft
+	rm -rf $(OBJS)
 
 fclean: clean
-	@make fclean -C libft
-	@${RM} ${NAME}
-	@${RM} ${OBJS_DIR}
+	$(MAKE) fclean -C libft
+	rm -rf $(NAME)
+	rm -rf $(OBJ_DIR)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug
