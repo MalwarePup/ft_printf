@@ -6,7 +6,7 @@
 /*   By: ladloff <ladloff@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:58:01 by ladloff           #+#    #+#             */
-/*   Updated: 2022/11/04 20:47:48 by ladloff          ###   ########.fr       */
+/*   Updated: 2023/04/07 20:55:08 by ladloff          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	ft_format(va_list *ap, const char format)
 	if (format == 'u')
 		len_args += ft_printudec(va_arg(*ap, unsigned int));
 	if (format == 'x')
-		len_args += ft_printhex_lower(va_arg(*ap, unsigned int));
+		len_args += ft_printhexa(va_arg(*ap, unsigned int), HEXA_LOWER_BASE);
 	if (format == 'X')
-		len_args += ft_printhex_upper(va_arg(*ap, unsigned int));
+		len_args += ft_printhexa(va_arg(*ap, unsigned int), HEXA_UPPER_BASE);
 	if (format == '%')
 		len_args += ft_printchar('%');
 	return (len_args);
