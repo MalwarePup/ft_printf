@@ -6,7 +6,7 @@
 /*   By: ladloff <ladloff@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:27:23 by ladloff           #+#    #+#             */
-/*   Updated: 2022/11/13 16:40:59 by ladloff          ###   ########.fr       */
+/*   Updated: 2023/02/26 15:23:09 by ladloff          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	ft_printptr(unsigned long n)
 		len_args += ft_printhex_lower(n);
 	}
 	else
-		len_args += ft_printstr(NULL_OS);
+		len_args += ft_printstr(NULL_POINTER_STR);
 	return (len_args);
 }

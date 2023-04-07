@@ -6,7 +6,7 @@
 /*   By: ladloff <ladloff@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:50:16 by ladloff           #+#    #+#             */
-/*   Updated: 2022/11/18 11:12:11 by ladloff          ###   ########.fr       */
+/*   Updated: 2023/02/26 15:22:51 by ladloff          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define FT_PRINTF_H
 
 # ifdef __APPLE__
-#  define NULL_OS "0x0"
+#  define NULL_POINTER_STR "0x0"
 # else
-#  define NULL_OS "(nil)"
+#  define NULL_POINTER_STR "(nil)"
 # endif
 
 # include <stdarg.h>
