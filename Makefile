@@ -6,7 +6,7 @@
 #    By: ladloff <ladloff@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 13:16:40 by ladloff           #+#    #+#              #
-#    Updated: 2023/04/07 21:00:16 by ladloff          ###   ########.fr        #
+#    Updated: 2023/04/10 12:11:29 by ladloff          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,7 @@ INC_DIR		?=	./include
 LIB_DIR		?=	./libft
 
 SRCS 		:=	ft_printf.c			\
-				ft_printchar.c		\
-				ft_printstr.c		\
-				ft_format.c			\
-				ft_printptr.c		\
-				ft_printdec.c		\
-				ft_printudec.c		\
-				ft_printhexa.c
+				ft_printf_utils.c	\
 
 OBJS		:=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 LIB_INC		:=	$(addprefix -I, $(LIB_DIR)/include)
