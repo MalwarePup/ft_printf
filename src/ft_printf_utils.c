@@ -6,18 +6,20 @@
 /*   By: ladloff <ladloff@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 15:23:06 by ladloff           #+#    #+#             */
-/*   Updated: 2023/04/10 12:16:04 by ladloff          ###   ########.fr       */
+/*   Updated: 2023/05/21 23:40:16 by ladloff          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "ft_printf.h"
+#include "libft.h"
 
-void	ft_printchar(char c, int *len_args)
+void	ft_printchar(char c, ssize_t *len_args)
 {
 	*len_args += write(STDOUT_FILENO, &c, 1);
 }
 
-void	ft_printstr(char *s, int *len_args)
+void	ft_printstr(char *s, ssize_t *len_args)
 {
 	if (!s)
 		*len_args += write(STDOUT_FILENO, "(null)", 6);
@@ -25,7 +27,7 @@ void	ft_printstr(char *s, int *len_args)
 		*len_args += write(STDOUT_FILENO, s, ft_strlen(s));
 }
 
-void	ft_printptr(unsigned long n, int *len_args)
+void	ft_printptr(unsigned long n, ssize_t *len_args)
 {
 	if (n > 0)
 	{
@@ -36,7 +38,7 @@ void	ft_printptr(unsigned long n, int *len_args)
 		ft_printstr(NULL_POINTER_STR, len_args);
 }
 
-void	ft_printdec(int n, int *len_args)
+void	ft_printdec(int n, ssize_t *len_args)
 {
 	char	*str;
 
@@ -45,7 +47,7 @@ void	ft_printdec(int n, int *len_args)
 	free(str);
 }
 
-void	ft_printudec(unsigned int n, int *len_args)
+void	ft_printudec(unsigned int n, ssize_t *len_args)
 {
 	char	*str;
 
