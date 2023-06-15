@@ -6,46 +6,55 @@
 #    By: ladloff <ladloff@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 13:16:40 by ladloff           #+#    #+#              #
-#    Updated: 2023/04/10 12:11:29 by ladloff          ###   ########.fr        #
+#    Updated: 2023/06/15 20:22:25 by ladloff          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		?=	libftprintf.a
+SHELL		:=	/bin/sh
 
-SRC_DIR		?=	./src
-OBJ_DIR		?=	./obj
-INC_DIR		?=	./include
-LIB_DIR		?=	./libft
+NAME		:=	libftprintf.a
 
-SRCS 		:=	ft_printf.c			\
-				ft_printf_utils.c	\
+SRC_DIR		:=	./src
+BUILD_DIR	:=	./build
+INCLUDE_DIR	:=	./include
+LIBFT_DIR	:=	./lib/libft
 
-OBJS		:=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-LIB_INC		:=	$(addprefix -I, $(LIB_DIR)/include)
-INC			:=	$(addprefix -I, $(INC_DIR))
+SRC_FILES 		:=	ft_printf.c \
+					ft_printf_utils.c
+OBJ_FILES	:=	$(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC_FILES))
 
-CFLAGS		:= -Wall -Wextra -Werror $(INC) $(LIB_INC)
+CFLAGS		:=	-Wall -Wextra -Werror -Wpedantic -MMD -MP
+CPPFLAGS	:=	-I$(INCLUDE_DIR) -I$(LIBFT_DIR)/include
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+.PHONY: all lib clean fclean re cleanlib fcleanlib relib
 
-$(NAME): $(OBJS)
-	$(MAKE) -C libft
-	cp $(LIB_DIR)/libft.a $(NAME)
-	ar -rcs $(NAME) $(OBJS)
+all: lib $(NAME)
 
-all: $(NAME)
+lib:
+	$(MAKE) -C $(LIBFT_DIR)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+-include $(OBJ_FILES:.o=.d)
+
+$(NAME): $(OBJ_FILES)
+	cp $(LIBFT_DIR)/libft.a $(NAME)
+	ar -rcs $(NAME) $(OBJ_FILES)
 
 clean:
-	$(MAKE) clean -C libft
-	rm -rf $(OBJS)
+	rm -rf $(BUILD_DIR)
 
 fclean: clean
-	$(MAKE) fclean -C libft
-	rm -rf $(NAME)
-	rm -rf $(OBJ_DIR)
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re debug
+cleanlib:
+	$(MAKE) clean -C $(LIBFT_DIR)
+
+fcleanlib:
+	$(MAKE) fclean -C $(LIBFT_DIR)
+
+relib: fcleanlib lib
